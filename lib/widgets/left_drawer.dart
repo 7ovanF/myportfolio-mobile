@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myportfolio_mobile/menu.dart';
+import 'package:myportfolio_mobile/screens/menu.dart';
+import 'package:myportfolio_mobile/screens/project_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -53,9 +54,12 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Add Project'),
             // Navigate to the Add Project screen
             onTap: () {
-              /*
-              TODO: Add a route to ProjectFormPage after creating it.
-              */
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => ProjectFormPage()
+                )
+              );
             },
           ),
         ],

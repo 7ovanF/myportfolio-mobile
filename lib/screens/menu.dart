@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myportfolio_mobile/screens/project_form.dart';
 import 'package:myportfolio_mobile/widgets/left_drawer.dart';
+import 'package:myportfolio_mobile/widgets/project_card.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -11,9 +13,16 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   final List<ItemHomepage> items = [
-    ItemHomepage("View Projects", Icons.folder, null),
-    ItemHomepage("Add Project", Icons.add_circle, Theme.of(context).colorScheme.primary),
-    ItemHomepage("Logout", Icons.logout, Colors.red),
+    ItemHomepage("View Projects", Icons.folder, null, null),
+    ItemHomepage("Add Project", Icons.add_circle, Theme.of(context).colorScheme.primary, () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProjectFormPage(),
+          ),
+        );
+      }),
+    ItemHomepage("Logout", Icons.logout, Colors.red, null),
   ];
   return Scaffold(
       appBar: AppBar(
@@ -103,62 +112,6 @@ class InfoCard extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(content),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ItemHomepage {
-  final String name;
-  final IconData icon;
-  final Color? color;
-
-  ItemHomepage(
-    this.name, 
-    this.icon, 
-    this.color
-  );
-}
-
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color ?? Theme.of(context).colorScheme.secondary,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("You pressed the ${item.name} button!"))
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );
