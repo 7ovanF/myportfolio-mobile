@@ -52,3 +52,25 @@ A `StatelessWidget` should be used if a component does *not* mutate on its own. 
 In a hot reload, only updated source code is recompiled, and only affected widgets are rebuilt. The state of the app and everything else are also unaffected. A hot restart recompiles the Flutter app and rebuilds the widget tree, therefore losing state. A full restart recompiles the entire Flutter App *and* underlying library code as if you just started a Dart VM fresh.
 
 A hot restart may be needed when the developer wants to intentionally reset the state, for example observing the transition between the initial state and a mutated state. When it concerns the Flutter library or platform-specific code, perform a full reload.
+
+## Tugas 8
+1.
+  - `Navigator.push()`: *pushes* a page into the top of the route stack. The page previously active will still be on the stack, so pressing "back" would pop the stack and return to the previous page.
+  - `Navigator.pushReplacement()`: *replaces* the page at the top of the stack (the current page).
+  - `Navigator.pop()`: *pops* the page at the top of the stack, basically "back".
+
+  Both the action card and the Drawer's navigation button uses `Navigator.push()`. Meanwhile, the Home option uses `pushReplacement()`, so it replaces the current page's position in the route stack.
+
+2. The `Scaffold`, representing a page in Flutter's Material UI, provides a dedicated field in its constructor for page components common in Material apps, like `appBar`s and `drawer`s. Since the build process of a Scaffold is predefined, it will put the `AppBar` and `Drawer` at their expected positions.
+  
+  Example of theme color usage: the secondary color is used as the background color of both the "Add Experience" button in the homepage and `ItemCard`'s (`./lib/widgets/project_card.dart`) `build()` method. Technically they're in the same page...
+
+3. The `SingleChildScrollView` widget provides scrolling functionality, since Flutter doesn't automatically provide it for overflowing elements. For forms with more fields, it is mandatory for a tolerable experience.
+
+  If the "spacing widget" means `Padding` fields, it is to simply apply a padding so that the field doesn't appear sticked to borders or other elements.
+
+4. The `GlobalKey` class (with the `FormState` generic) identifies an element exactly in a global scope, making it accessible by other objects. Here, it exposes the `FormState` which stores information of fields and their values.
+
+  `validator` is an optional property of a form's `Field`. When `validate()` is eventually called on `_formKey.currentState!.validate()` (performs the `.validate()` method on the `FormState`), each field's `validator`'s value is executed. `validator` expects a function that returns a failure message `String` and returns `null` if the field is valid.
+  
+  An example rejected value would be a blank project title or one completely filled by whitespace (validated by `value.trim().isEmpty`). Of course, even with the ideal widget or input type, the user still has the liberty to leave the field blank or intentionally alter it to an invalid format.
