@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myportfolio_mobile/screens/experience_form.dart';
 import 'package:myportfolio_mobile/screens/project_form.dart';
 import 'package:myportfolio_mobile/widgets/left_drawer.dart';
 import 'package:myportfolio_mobile/widgets/project_card.dart';
@@ -15,13 +16,21 @@ class MyHomePage extends StatelessWidget {
   final List<ItemHomepage> items = [
     ItemHomepage("View Projects", Icons.folder, null, null),
     ItemHomepage("Add Project", Icons.add_circle, Theme.of(context).colorScheme.primary, () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProjectFormPage(),
-          ),
-        );
-      }),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProjectFormPage(),
+        ),
+      );
+    }),
+    ItemHomepage("Add Experience", Icons.add_circle, Theme.of(context).colorScheme.secondary, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ExperienceFormPage(),
+        ),
+      );
+    }),
     ItemHomepage("Logout", Icons.logout, Colors.red, null),
   ];
   return Scaffold(
@@ -36,53 +45,55 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       drawer: const LeftDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Horizontal row showing 3 InfoCards.
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InfoCard(title: 'NPM', content: npm),
-                InfoCard(title: 'Name', content: fullName),
-                InfoCard(title: 'Class', content: pbpClass),
-              ],
-            ),
-
-            const SizedBox(height: 16.0),
-
-            // Greeting and 3-column action grid.
-            Center(
-              child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Horizontal row showing 3 InfoCards.
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Welcome to MyPortfolio Mobile!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-
-                  GridView.count(
-                    primary: true,
-                    padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    children: items.map((ItemHomepage item) {
-                      return ItemCard(item);
-                    }).toList(),
-                  ),
+                  InfoCard(title: 'NPM', content: npm),
+                  InfoCard(title: 'Name', content: fullName),
+                  InfoCard(title: 'Class', content: pbpClass),
                 ],
               ),
-            ),
-          ],
+
+              const SizedBox(height: 16.0),
+
+              // Greeting and 3-column action grid.
+              Center(
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        'Welcome to MyPortfolio Mobile!',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
+
+                    GridView.count(
+                      primary: true,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 3,
+                      shrinkWrap: true,
+                      children: items.map((ItemHomepage item) {
+                        return ItemCard(item);
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/screens/menu.dart';
+import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await findSystemLocale();
   runApp(const MyApp());
 }
 
